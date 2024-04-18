@@ -1,14 +1,30 @@
 'use client';
 
 import React, { useEffect } from 'react';
+
 import Note from './Note';
 import NewNote from './NewNote';
+import UserInfo from './UserInfo';
 import { createNote, getNotes, deleteNote } from '@/app/lib/data';
 import { Note as NoteType } from '../lib/definitions';
 
 import { assert } from 'chai';
 
+import { useSession } from 'next-auth/react';
+
 export default function App() {
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    console.log(
+      status === 'loading'
+        ? `${status}...`
+        : status === 'authenticated'
+          ? `${session}`
+          : `${status}`,
+    );
+  }, [session, status]);
+
   let [notes_components_state, set_notes_components_state] = React.useState(
     new Array<React.JSX.Element>(),
   );
@@ -60,7 +76,7 @@ export default function App() {
    * twice.
    */
   let already_rendered = false;
-  
+
   useEffect(() => {
     if (already_rendered) return;
     else already_rendered = true;
@@ -73,6 +89,7 @@ export default function App() {
 
   return (
     <main>
+      {session ? <UserInfo session={session}></UserInfo> : <></>}
       <NewNote submit_func={add_note} />
       <div id="notes-container">{notes_components_state}</div>
     </main>
