@@ -38,8 +38,8 @@ export default function App() {
           notes.map((note) => (
             <Note
               key={String(note.id) + '-note'}
-              title={note.title ? note.title : ''}
-              content={note.content ? note.content : ''}
+              title={note.title || ''}
+              content={note.content || ''}
               delete_func={() =>
                 deleteNote(user_id, note.id)
                   .then(() => forceUpdate())

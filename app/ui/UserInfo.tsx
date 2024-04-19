@@ -9,9 +9,7 @@ export default function UserInfo(props: { session: Session }) {
       <h1 style={{ textAlign: 'center' }}>{`${session.user?.name}`}</h1>
 
       <Image
-        src={
-          session.user?.image ? session.user?.image : 'https://placehold.co/128'
-        }
+        src={session.user?.image || 'https://placehold.co/128'}
         width={128}
         height={128}
         alt={'profile pic'}
