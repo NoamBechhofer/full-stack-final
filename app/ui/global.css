@@ -108,6 +108,17 @@ form textarea {
   resize: none;
 }
 
+button.sign-out {
+  margin: 0 auto 0.5em;
+  display: block;
+  cursor: pointer;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  background-color: #f5ba13;
+  color: #fff;
+  border: none;
+}
+
 form button {
   position: absolute;
   right: 18px;

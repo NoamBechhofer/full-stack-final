@@ -12,15 +12,13 @@ import { assert } from 'chai';
 import { useSession } from 'next-auth/react';
 
 export default function App() {
-  const [_update, forceUpdate] = useReducer((x: number) => x + 1, 0);
+  const [update, forceUpdate] = useReducer((x: number) => x + 1, 0);
 
   const { data: session, status } = useSession();
 
   const [user_id, set_user_id] = React.useState<string>('');
 
-  // TODO: remove this debug code
   useEffect(() => {
-    console.log(`auth status: ${status}`);
     if (session) {
       assert(session.user);
       assert(session.user.name);
@@ -52,7 +50,7 @@ export default function App() {
         );
       })
       .catch((err) => console.log(err));
-  }, [_update, user_id]);
+  }, [update, user_id]);
 
   function add_note(note: { title: string; content: string }) {
     createNote(user_id, note)
