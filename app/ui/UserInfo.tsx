@@ -13,6 +13,7 @@ export default function UserInfo(props: { session: Session }) {
         width={128}
         height={128}
         alt={'profile pic'}
+        priority={true}
         style={{
           margin: '0 auto',
           display: 'block',

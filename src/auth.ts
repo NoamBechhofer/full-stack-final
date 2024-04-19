@@ -2,9 +2,12 @@ import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 
 import type { NextAuthOptions } from "next-auth"
 import { getServerSession } from "next-auth"
 
+import { assert } from "chai"
+
 import Discord from "next-auth/providers/discord"
 
 import "dotenv/config"
+import { register_user_if_not_already_registered } from "@/app/lib/data"
 
 const discord_client_id = process.env.DISCORD_CLIENT_ID
 if (!discord_client_id) {
@@ -31,11 +34,18 @@ export const config = {
       authorization: { params: { scope: scopes } },
     })
   ],
-  secret: nextauth_secret
+  secret: nextauth_secret,
+  callbacks: {
+    async signIn(params) {
+      const user_id = params.user.name;
+      assert(user_id);
+      register_user_if_not_already_registered(user_id);
+      return true;
+    },
+  }
 } satisfies NextAuthOptions
 
 // Use in server contexts
 export function auth(...args: [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]] | [NextApiRequest, NextApiResponse] | []) {
-  console.log("auth'ing...")
   return getServerSession(...args, config)
 }
