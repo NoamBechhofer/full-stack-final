@@ -5,6 +5,8 @@ import Footer from '@/app/ui/Footer';
 
 import { Providers } from './provider';
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 const monserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat',
@@ -25,7 +27,10 @@ export default function RootLayout({
     <html lang="en" className={`${monserrat.variable} ${mclaren.variable}`}>
       <body>
         <Header />
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <SpeedInsights />
+        </Providers>
         <Footer />
       </body>
     </html>
