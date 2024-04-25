@@ -5,6 +5,9 @@ const nextConfig = {
       {
         hostname: 'cdn.discordapp.com',
       },
+      {
+        hostname: 'placehold.co',
+      },
     ],
   },
 };

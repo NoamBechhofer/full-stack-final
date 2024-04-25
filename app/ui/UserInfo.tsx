@@ -1,29 +1,14 @@
-import { Session } from 'next-auth';
-import { signOut } from 'next-auth/react';
-import Image from 'next/image';
+import { assert } from 'chai';
+import { useSession } from 'next-auth/react';
+import UserInfoSkeleton from './UserInfoSkeleton';
 
-export default function UserInfo(props: { session: Session }) {
-  const session = props.session;
-  return (
-    <div style={{ margin: '1em auto' }}>
-      <h1 style={{ textAlign: 'center' }}>{`${session.user?.name}`}</h1>
-
-      <Image
-        src={session.user?.image || 'https://placehold.co/128'}
-        width={128}
-        height={128}
-        alt={'profile pic'}
-        priority={true}
-        style={{
-          margin: '1em auto',
-          display: 'block',
-          borderRadius: '50%',
-        }}
-      />
-
-      <button className="sign-out" onClick={() => signOut()}>
-        Sign out
-      </button>
-    </div>
-  );
+export default function UserInfo() {
+  const { data: session, status } = useSession();
+  if (status === 'authenticated') {
+    return <UserInfoSkeleton session={session} />;
+  } else if (status === 'unauthenticated') {
+    assert(false, 'Middleware should force user to be authenticated');
+  } else {
+    return <UserInfoSkeleton />;
+  }
 }
