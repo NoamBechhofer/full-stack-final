@@ -6,6 +6,7 @@ import Footer from '@/app/ui/Footer';
 import { Providers } from './provider';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { CookiesProvider } from 'next-client-cookies/server';
 
 const monserrat = Montserrat({
   subsets: ['latin'],
@@ -28,7 +29,7 @@ export default function RootLayout({
       <body>
         <Header />
         <Providers>
-          {children}
+          <CookiesProvider>{children}</CookiesProvider>
           <SpeedInsights />
         </Providers>
         <Footer />

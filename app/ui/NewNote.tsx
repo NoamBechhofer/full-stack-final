@@ -28,7 +28,10 @@ export default function NewNote(props: {
       }
     });
   };
-  return (
+  const { data: session, status } = useSession();
+  return status === 'loading' ? (
+    <></>
+  ) : (
     <form>
       <input
         name="title"
