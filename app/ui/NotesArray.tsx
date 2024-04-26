@@ -1,9 +1,6 @@
 import React from 'react';
 
-export default function NotesArray(props: {
-  notes: React.JSX.Element[];
-}) {
-
+export default function NotesArray(props: { notes: React.JSX.Element[] }) {
   return (
     <div
       id="notes-container"

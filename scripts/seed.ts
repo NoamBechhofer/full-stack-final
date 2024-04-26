@@ -1,51 +1,48 @@
 #!/usr/bin/env ts-node
 
-const { db } =require( '@vercel/postgres');
-require("dotenv").config();
+const { db } = require('@vercel/postgres');
+require('dotenv').config();
 
-
-
-require("ts-node").register({
+require('ts-node').register({
   compilerOptions: {
-    module: "CommonJS",
-    target: "ES2018",
+    module: 'CommonJS',
+    target: 'ES2018',
   },
-})
+});
 
 let notes: {
   key: number;
   title: string;
   content: string;
 }[] = [
-    {
-      key: 1,
-      title: 'Delegation',
-      content:
-        'Q. How many programmers does it take to change a light bulb? A. None – It’s a hardware problem',
-    },
-    {
-      key: 2,
-      title: 'Loops',
-      content:
-        'How to keep a programmer in the shower forever. Show him the shampoo bottle instructions: Lather. Rinse. Repeat.',
-    },
-    {
-      key: 3,
-      title: 'Arrays',
-      content:
-        "Q. Why did the programmer quit his job? A. Because he didn't get arrays.",
-    },
-    {
-      key: 4,
-      title: 'Hardware vs. Software',
-      content:
-        "What's the difference between hardware and software? You can hit your hardware with a hammer, but you can only curse at your software.",
-    },
-  ];
+  {
+    key: 1,
+    title: 'Delegation',
+    content:
+      'Q. How many programmers does it take to change a light bulb? A. None – It’s a hardware problem',
+  },
+  {
+    key: 2,
+    title: 'Loops',
+    content:
+      'How to keep a programmer in the shower forever. Show him the shampoo bottle instructions: Lather. Rinse. Repeat.',
+  },
+  {
+    key: 3,
+    title: 'Arrays',
+    content:
+      "Q. Why did the programmer quit his job? A. Because he didn't get arrays.",
+  },
+  {
+    key: 4,
+    title: 'Hardware vs. Software',
+    content:
+      "What's the difference between hardware and software? You can hit your hardware with a hammer, but you can only curse at your software.",
+  },
+];
 
 async function main() {
   const client = await db.connect();
-
 
   try {
     const createTable = await client.sql`

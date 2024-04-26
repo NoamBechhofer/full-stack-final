@@ -1,4 +1,4 @@
 declare module '*.css' {
-    const content: { [className: string]: string };
-    return content;
+  const content: { [className: string]: string };
+  return content;
 }

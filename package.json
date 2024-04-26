@@ -5,8 +5,8 @@
     "dev": "next dev",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "start": "next start",
-    "seed": "ts-node scripts/seed.ts "
+    "seed": "ts-node scripts/seed.ts ",
+    "start": "next start"
   },
   "dependencies": {
     "@types/chai": "^4.3.14",
