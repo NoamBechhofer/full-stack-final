@@ -5,9 +5,37 @@ import { Note } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
 import 'dotenv/config';
+import { cookies } from 'next/headers';
 
 function get_user_table_name(user_id: string) {
   return `notes_${user_id}`;
+}
+
+export async function drop_user_table(user_id: string) {
+  noStore();
+  try {
+    await sql.query<Note>(`DROP TABLE IF EXISTS ${get_user_table_name(user_id)}`);
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to drop table for user.');
+  }
+}
+
+export async function transfer_cookie_id_notes_to_registered_user_id_notes(
+  registered_user_id: string
+) {
+  const cookie_user_id = cookies().get('user_id')?.value;
+  if (!cookie_user_id) {
+    return;
+  }
+  await sql.query<Note>(`
+    INSERT INTO ${get_user_table_name(registered_user_id)}
+    (title, content)
+    SELECT title, content
+    FROM ${get_user_table_name(cookie_user_id)}
+    ORDER BY id ASC
+  `).catch((error) => console.error('Database Error:', error));
+  await drop_user_table(cookie_user_id);
 }
 
 export async function register_user_if_not_already_registered(user_id: string) {
@@ -25,12 +53,16 @@ export async function register_user_if_not_already_registered(user_id: string) {
   }
 }
 
+/** If the user's table does not exist, returns an empty array */
 export async function getNotes(user_id: string) {
   noStore();
   try {
     const notes = await sql.query<Note>(`SELECT * FROM ${get_user_table_name(user_id)}`);
     return notes.rows;
-  } catch (error) {
+  } catch (error: any) {
+    if (error && error.code && error.code === '42P01') {
+      return [];
+    }
     console.error('Database Error:', error);
     throw new Error('Failed to fetch notes.');
   }

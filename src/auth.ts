@@ -7,7 +7,7 @@ import { assert } from "chai"
 import Discord from "next-auth/providers/discord"
 
 import "dotenv/config"
-import { register_user_if_not_already_registered } from "@/app/lib/data"
+import { register_user_if_not_already_registered, transfer_cookie_id_notes_to_registered_user_id_notes } from "@/app/lib/data"
 
 const discord_client_id = process.env.DISCORD_CLIENT_ID
 if (!discord_client_id) {
@@ -39,7 +39,8 @@ export const config = {
     async signIn(params) {
       const user_id = params.user.name;
       assert(user_id);
-      register_user_if_not_already_registered(user_id);
+      await register_user_if_not_already_registered(user_id);
+      await transfer_cookie_id_notes_to_registered_user_id_notes(user_id);
       return true;
     },
   }
