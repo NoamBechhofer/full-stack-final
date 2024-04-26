@@ -7,7 +7,7 @@ import {
   createNote,
   getNotes,
   deleteNote,
-  register_user_if_not_already_registered,
+  register_user_if_not_already_registered
 } from '@/app/lib/data';
 
 import { assert } from 'chai';
@@ -64,7 +64,7 @@ export default function App() {
   const [user_id, set_user_id] = useState<UserID | null>(null);
 
   const [notes_array, set_notes_array] = useState(
-    new Array<React.JSX.Element>(),
+    new Array<React.JSX.Element>()
   );
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export default function App() {
                   .catch((err) => console.log(err))
               }
             ></Note>
-          )),
+          ))
         );
       })
       .catch((err) => console.log(err));

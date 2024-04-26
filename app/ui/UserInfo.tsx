@@ -87,7 +87,7 @@ export default function UserInfo() {
         style={{
           margin: '1em auto',
           display: 'block',
-          borderRadius: '50%',
+          borderRadius: '50%'
         }}
       />
 

@@ -27,7 +27,7 @@ export default function Note(props: INoteProps) {
   let old_font_size: string;
 
   function make_button_text_red_on_mouseover(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     old_color = (event.target as HTMLButtonElement).style.color;
     old_font_size = (event.target as HTMLButtonElement).style.fontSize;
@@ -36,7 +36,7 @@ export default function Note(props: INoteProps) {
     (event.target as HTMLButtonElement).style.fontSize = '1.5em';
   }
   function return_button_text_to_normal_on_mouseout(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     (event.target as HTMLButtonElement).style.color = old_color;
     (event.target as HTMLButtonElement).style.fontSize = old_font_size;

@@ -15,7 +15,7 @@ export async function drop_user_table(user_id: string) {
   noStore();
   try {
     await sql.query<Note>(
-      `DROP TABLE IF EXISTS ${get_user_table_name(user_id)}`,
+      `DROP TABLE IF EXISTS ${get_user_table_name(user_id)}`
     );
   } catch (error) {
     console.error('Database Error:', error);
@@ -24,7 +24,7 @@ export async function drop_user_table(user_id: string) {
 }
 
 export async function transfer_cookie_id_notes_to_registered_user_id_notes(
-  registered_user_id: string,
+  registered_user_id: string
 ) {
   const cookie_user_id = cookies().get('user_id')?.value;
   if (!cookie_user_id) {
@@ -38,7 +38,7 @@ export async function transfer_cookie_id_notes_to_registered_user_id_notes(
     SELECT title, content
     FROM ${get_user_table_name(cookie_user_id)}
     ORDER BY id ASC
-  `,
+  `
     )
     .catch((error) => console.error('Database Error:', error));
   await drop_user_table(cookie_user_id);
@@ -63,7 +63,7 @@ export async function getNotes(user_id: string) {
   noStore();
   try {
     const notes = await sql.query<Note>(
-      `SELECT * FROM ${get_user_table_name(user_id)}`,
+      `SELECT * FROM ${get_user_table_name(user_id)}`
     );
     return notes.rows;
   } catch (error: any) {
@@ -80,7 +80,7 @@ export async function deleteNote(user_id: string, id: number) {
   try {
     await sql.query<Note>(
       `DELETE FROM ${get_user_table_name(user_id)} WHERE id = $1`,
-      [id],
+      [id]
     );
   } catch (error) {
     console.error('Database Error:', error);
@@ -90,7 +90,7 @@ export async function deleteNote(user_id: string, id: number) {
 
 export async function createNote(
   user_id: string,
-  note: { title: string; content: string },
+  note: { title: string; content: string }
 ) {
   noStore();
   try {
@@ -99,7 +99,7 @@ export async function createNote(
       INSERT INTO ${get_user_table_name(user_id)} (title, content)
       VALUES ($1, $2)
       RETURNING *`,
-      [note.title, note.content],
+      [note.title, note.content]
     );
     return newNote.rows;
   } catch (error) {

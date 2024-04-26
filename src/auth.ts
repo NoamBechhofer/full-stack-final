@@ -1,7 +1,7 @@
 import type {
   GetServerSidePropsContext,
   NextApiRequest,
-  NextApiResponse,
+  NextApiResponse
 } from 'next';
 import type { NextAuthOptions } from 'next-auth';
 import { getServerSession } from 'next-auth';
@@ -13,7 +13,7 @@ import Discord from 'next-auth/providers/discord';
 import 'dotenv/config';
 import {
   register_user_if_not_already_registered,
-  transfer_cookie_id_notes_to_registered_user_id_notes,
+  transfer_cookie_id_notes_to_registered_user_id_notes
 } from '@/app/lib/data';
 
 const discord_client_id = process.env.DISCORD_CLIENT_ID;
@@ -38,8 +38,8 @@ export const config = {
     Discord({
       clientId: discord_client_id,
       clientSecret: discord_client_secret,
-      authorization: { params: { scope: scopes } },
-    }),
+      authorization: { params: { scope: scopes } }
+    })
   ],
   secret: nextauth_secret,
   callbacks: {
@@ -49,8 +49,8 @@ export const config = {
       await register_user_if_not_already_registered(user_id);
       await transfer_cookie_id_notes_to_registered_user_id_notes(user_id);
       return true;
-    },
-  },
+    }
+  }
 } satisfies NextAuthOptions;
 
 // Use in server contexts

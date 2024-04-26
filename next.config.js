@@ -3,13 +3,13 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'cdn.discordapp.com',
+        hostname: 'cdn.discordapp.com'
       },
       {
-        hostname: 'placehold.co',
-      },
-    ],
-  },
+        hostname: 'placehold.co'
+      }
+    ]
+  }
 };
 
 module.exports = nextConfig;

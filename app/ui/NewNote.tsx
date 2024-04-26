@@ -12,7 +12,7 @@ export default function NewNote(props: {
   let [note, setNote] = React.useState({ title: '', content: '' });
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const new_str: string = event.target.value;
     const source: string = event.target.name;

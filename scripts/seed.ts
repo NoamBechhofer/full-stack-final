@@ -6,8 +6,8 @@ require('dotenv').config();
 require('ts-node').register({
   compilerOptions: {
     module: 'CommonJS',
-    target: 'ES2018',
-  },
+    target: 'ES2018'
+  }
 });
 
 let notes: {
@@ -19,26 +19,26 @@ let notes: {
     key: 1,
     title: 'Delegation',
     content:
-      'Q. How many programmers does it take to change a light bulb? A. None – It’s a hardware problem',
+      'Q. How many programmers does it take to change a light bulb? A. None – It’s a hardware problem'
   },
   {
     key: 2,
     title: 'Loops',
     content:
-      'How to keep a programmer in the shower forever. Show him the shampoo bottle instructions: Lather. Rinse. Repeat.',
+      'How to keep a programmer in the shower forever. Show him the shampoo bottle instructions: Lather. Rinse. Repeat.'
   },
   {
     key: 3,
     title: 'Arrays',
     content:
-      "Q. Why did the programmer quit his job? A. Because he didn't get arrays.",
+      "Q. Why did the programmer quit his job? A. Because he didn't get arrays."
   },
   {
     key: 4,
     title: 'Hardware vs. Software',
     content:
-      "What's the difference between hardware and software? You can hit your hardware with a hammer, but you can only curse at your software.",
-  },
+      "What's the difference between hardware and software? You can hit your hardware with a hammer, but you can only curse at your software."
+  }
 ];
 
 async function main() {
@@ -62,14 +62,14 @@ async function main() {
         VALUES (${note.key}, ${note.title}, ${note.content})
         ON CONFLICT (id) DO NOTHING;
       `;
-      }),
+      })
     );
 
     console.log(`Seeded ${insertedNotes.length} notes`);
 
     console.log({
       createTable,
-      users: insertedNotes,
+      users: insertedNotes
     });
   } catch (error) {
     console.error('Error seeding users:', error);
@@ -82,6 +82,6 @@ async function main() {
 main().catch((err) => {
   console.error(
     'An error occurred while attempting to seed the database:',
-    err,
+    err
   );
 });

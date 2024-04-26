@@ -10,17 +10,17 @@ import { CookiesProvider } from 'next-client-cookies/server';
 
 const monserrat = Montserrat({
   subsets: ['latin'],
-  variable: '--font-montserrat',
+  variable: '--font-montserrat'
 });
 
 const mclaren = McLaren({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-mclaren',
+  variable: '--font-mclaren'
 });
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
