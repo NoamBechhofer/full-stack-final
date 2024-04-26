@@ -46,9 +46,6 @@ class GuestUserId implements UserID {
       user_id =
         Date.now().toString(36) + Math.random().toString(36).substring(2);
       cookies.set('user_id', user_id);
-      register_user_if_not_already_registered(user_id).catch((err) =>
-        console.log(err),
-      );
     }
     this.user_cookie = user_id;
   }
@@ -107,23 +104,18 @@ export default function App() {
       .catch((err) => console.log(err));
   }, [update, user_id]);
 
-  function add_note(note: { title: string; content: string }) {
+  async function add_note(note: { title: string; content: string }) {
     assert(user_id);
-    createNote(user_id.to_string(), note)
-      .then((db_note) => {
-        assert(db_note.length === 1);
-        forceUpdate();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await register_user_if_not_already_registered(user_id.to_string());
+    assert((await createNote(user_id.to_string(), note)).length === 1);
+    forceUpdate();
   }
 
   return (
     <main>
       <UserInfo />
       <NewNote submit_func={add_note} />
-        {user_id && <NotesArray notes={notes_array} />}
+      {user_id && <NotesArray notes={notes_array} />}
     </main>
   );
 }
