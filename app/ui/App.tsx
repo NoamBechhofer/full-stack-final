@@ -8,7 +8,7 @@ import {
   getNotes,
   deleteNote,
   register_user_if_not_already_registered
-} from '@/app/lib/data';
+} from '@/app/backend/data';
 
 import { assert } from 'chai';
 

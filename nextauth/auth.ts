@@ -14,7 +14,7 @@ import 'dotenv/config';
 import {
   register_user_if_not_already_registered,
   transfer_cookie_id_notes_to_registered_user_id_notes
-} from '@/app/lib/data';
+} from '@/app/backend/data';
 
 const discord_client_id = process.env.DISCORD_CLIENT_ID;
 if (!discord_client_id) {
